@@ -8,13 +8,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
 @Entity
+@Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 
 public class Person {
     @Id
@@ -28,18 +26,5 @@ public class Person {
     private String cpf;
     private LocalDate birthDate;
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    @ToString.Exclude //PERFORMANCE
     private List<Phone> phones;
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Person person = (Person) o;
-
-        return Objects.equals(id, person.id);
-    }
-    @Override
-    public int hashCode() {
-        return 1422108840;
-    }
 }
